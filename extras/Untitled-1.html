@@ -1,0 +1,24 @@
+//LAMINATION-1
+
+        const lm2size1 = document.getElementById('lm2size1');
+        const lm2size2 = document.getElementById('lm2size2');
+        const lm2side = document.getElementById('lm2side');
+        const lm2rate= document.getElementById('lm2rate');
+        const lm2sheet = document.getElementById('lm2sheet');
+        const lm2 = document.getElementById('lm2');
+
+        function calculatelm2() {
+            const lm2s1 = parseFloat(lm2size1.value) || 0;
+            const lm2s2 = parseFloat(lm2size2.value) || 0;
+            const lm2si = parseFloat(lm2side.value) || 0;
+            const lm2ra = parseFloat(lm2rate.value) || 0;
+            const lm2sh = parseFloat(lm2sheet.value) || 0;
+
+            const result3 = lm2s1*lm2s2*lm2ra/100*lm2si*lm2sh;
+            lm2.value = result3.toFixed(2); // or just `result` if you don't want to round
+        }
+
+        // Add listeners to all inputs
+        [lm2size1, lm2size2, lm2side, lm2rate, lm2sheet].forEach(input => {
+            input.addEventListener('input', calculatelm2);
+        });

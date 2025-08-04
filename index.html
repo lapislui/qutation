@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quotation Sheet</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: black;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            border-color: #45a049;
+            margin: 20px 0;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            color: #ddd;
+        }
+
+        th,
+        td {
+            padding: 12px 15px;
+            text-align: left;
+            border: 1px solid #ddd;
+            border-color: #45a049;
+        }
+
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #000000;
+        }
+
+        tr:hover {
+            background-color: #5a5858;
+        }
+
+        @media screen and (max-width: 600px) {
+            table {
+                display: block;
+                overflow-x: auto;
+            }
+        }
+
+        input[type="number"] {
+            width: 100%;
+            padding: 8px;
+            margin: 0;
+            box-sizing: border-box;
+            border: none;
+            background: transparent;
+            outline: none;
+            color: #ddd;
+        }
+
+        td {
+            padding: 0;
+            position: relative;
+        }
+
+        td:not(:has(input)) {
+            padding: 12px 15px;
+        }
+
+        .button-container {
+            margin: 20px 0;
+            text-align: right;
+            display: flex;
+            justify-content: flex-start;
+            gap: 10px;
+        }
+
+        .print-btn {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .print-btn:hover {
+            background-color: #45a049;
+        }
+
+        @media print {
+            .button-container {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="button-container" >
+        <button class="print-btn" onclick="printPage()">Print</button>
+        <button class="clear-btn" onclick="clearInputs()">Clear All</button>
+    </div>
+    <table style="width: 70%;">
+        <thead>
+            <tr>
+                <th style="width: 5%;">Sr. No.</th>
+                <th style="width: 13%;"></th>
+                <th></th>
+                <th>Amount</th>
+                <th>Quantity</th>
+                <th>Unit</th>
+                <th>Rate</th>
+                <th>Sheet</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1.</td>
+                <td style="width: fit-content;">Paper-1</td>
+                <td><input type="number" name="p1" id="p1"></td>
+                <td><input type="number" name="p1amt" id="p1amt"></td>
+                <td><input type="number" name="p1qty" id="p1qty"></td>
+                <td><input type="number" name="p1unt" id="p1unt"></td>
+                <td><input type="number" name="p1rate" id="p1rate"></td>
+                <td><input type="number" name="p1sheet" id="p1sheet"></td>
+            </tr>
+            <tr>
+                <td>2.</td>
+                <td style="width: fit-content;">Paper-2</td>
+                <td><input type="number" name="p2" id="p2"></td>
+                <td><input type="number" name="p2amt" id="p2amt"></td>
+                <td><input type="number" name="p2qty" id="p2qty"></td>
+                <td><input type="number" name="p2unt" id="p2unt"></td>
+                <td><input type="number" name="p2rate" id="p2rate"></td>
+                <td><input type="number" name="p2sheet" id="p2sheet"></td>
+            </tr>
+            <tr>
+                <td>3.</td>
+                <td style="width: fit-content;">Printing-1</td>
+                <td><input type="number" name="print1" id="print1"></td>
+            </tr>
+            <tr>
+                <td>4.</td>
+                <td style="width: fit-content;">Printing-1</td>
+                <td><input type="number" name="print2" id="print2"></td>
+                <td style="width: fit-content;"></td>
+                <td style="width: fit-content;"></td>
+                <td style="width: fit-content;background-color: rgb(6, 63, 58);">Side</td>
+                <td style="width: fit-content;background-color: rgb(6, 63, 58);">Rate</td>
+                <td style="width: fit-content;"></td>
+            </tr>
+            <tr>
+                <td>5.</td>
+                <td style="width: fit-content;">Lamination-1</td>
+                <td><input type="number" name="lm" id="lm"></td>
+                <td><input type="number" name="lmsize1" id="lmsize1"></td>
+                <td><input type="number" name="lmsize2" id="lmsize2"></td>
+                <td><input type="number" name="lmside" id="lmside" value="1"></td>
+                <td><input type="number" name="lmrate" id="lmrate" value="0.45"></td>
+                <td><input type="number" name="lmsheet" id="lmsheet"></td>
+            </tr>
+            <tr>
+                <td>6.</td>
+                <td style="width: fit-content;">Dye Making</td>
+                <td><input type="number" name="dye" id="dye"></td>
+            </tr>
+            <tr>
+                <td>7.</td>
+                <td style="width: fit-content;">Punching</td>
+                <td><input type="number" name="punch" id="punch"></td>
+            </tr>
+            <tr>
+                <td>8.</td>
+                <td style="width: fit-content;">Folding</td>
+                <td><input type="number" name="fold" id="fold"></td>
+                <td colspan="4"><input value="80" type="number" name="f1" id="f1" style="width: 100%;justify-items: center;"></td>
+                <td><input type="number" name="f2" id="f2" title="f2"></td>
+            </tr>
+            <tr>
+                <td>9.</td>
+                <td style="width: fit-content;">Bag</td>
+                <td><input type="number" name="bag" id="bag" title="bag" placeholder="bag"></td>
+                <td style="width: fit-content;background-color: rgb(6, 63, 58);">Pac</td>
+                <td><input type="number" name="b1" id="b1" value="30"></td>
+                <td colspan="2"><input type="number" name="b2" id="b2" value="1.5" style="width: 100%;justify-items: center;"></td>
+                <!-- <td><input type="number" name="b3" id="b3" readonly title="Readonly" placeholder="can't write here"></td> -->
+            </tr>
+            <tr>
+                <td>10.</td>
+                <td style="width: fit-content;">Packing</td>
+                <td><input type="number" name="pack" id="pack" title="pack" placeholder="pack"></td>
+                <td colspan="4"><input type="number" name="pack1" id="pack1" value="60" style="width: 100%;justify-items: center;"></td>
+                <!-- <td><input type="number" name="pack2" id="pack2" readonly placeholder="readonly"></td> -->
+                <!-- <td><input type="number" name="b3" id="b3" readonly title="Readonly" placeholder="can't write here"></td> -->
+            </tr>
+            <tr>
+                <td>11.</td>
+                <td style="width: fit-content;">Binding</td>
+                <td><input type="number" name="bind" id="bind" title="bind" placeholder="bind"></td>
+                <td colspan="4"><input type="number" name="bind1" id="bind1" value="1" style="width: 100%;justify-items: center;"></td>
+                <!-- <td><input type="number" name="bind2" id="bind2" readonly placeholder="readonly"></td> -->
+                <!-- <td><input type="number" name="b3" id="b3" readonly title="Readonly" placeholder="can't write here"></td> -->
+            </tr>
+            <tr>
+                <td>12.</td>
+                <td style="width: fit-content;">Box</td>
+                <td><input type="number" name="box" id="box"></td>
+                <td><input type="number" name="boxamt" id="boxamt" value="20"></td>
+                <td><input type="number" name="boxqty" id="boxqty" value="25"></td>
+                <td><input type="number" name="boxunt" id="boxunt" value="350"></td>
+                <td><input type="number" name="boxrate" id="boxrate" value="30"></td>
+                <td><input type="number" name="boxsheet" id="boxsheet"></td>
+            </tr>
+            <tr>
+                <td>13.</td>
+                <td style="width: fit-content;">FREIGHT</td>
+                <td><input type="number" name="freight" id="freight"></td>
+            </tr>
+            
+        </tbody>
+    </table>
+
+    <style>
+        .floating-table {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 300px !important;
+            background-color: rgba(0, 0, 0, 0.9);
+            border: 2px solid #4CAF50;
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(76, 175, 80, 0.3);
+            z-index: 1000;
+        }
+
+        .floating-table th,
+        .floating-table td {
+            padding: 8px;
+            font-size: 14px;
+        }
+
+        @media print {
+            .floating-table {
+                position: static;
+                width: 100% !important;
+                margin-top: 20px;
+            }
+        }
+    </style>
+
+    <table class="floating-table">
+        <thead>
+            <tr>
+                <th style="width: 5%;">Sr. No.</th>
+                <th style="width: 5%;">Total</th>
+                <th style="width: 10%;"></th>
+               
+            </tr>
+        </thead>
+        <tbody>
+            
+           
+            <tr>
+                <td><input type="number" name="" id=""></td>
+                <td>Total</td>
+                <td><input type="number" name="total" id="total"></td>
+            </tr>
+            <tr>
+                <td>Profit</td>
+                <td><input type="number" name="per" id="per">%</td>
+                <td><input type="number" name="perc" id="perc"></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>Amount</td>
+                <td><input type="number" name="mout" id="mout"></td>
+            </tr>
+            <tr>
+                <td>Quantity<input type="number" name="qtyperpcs" id="qtyperpcs"></td>
+                <td>Per pcs</td>
+                <td><input type="number" name="perpcs" id="perpcs"></td>
+            </tr>
+        </tbody>
+    </table>
+    <script>
+        function clearInputs() {
+            const inputs = document.querySelectorAll('input[type="number"]');
+            inputs.forEach(input => {
+                input.value = '';
+            });
+        }
+
+        function printPage() {
+            window.print();
+        }
+
+        //PAPER-1
+
+        const Paper1amt = document.getElementById('p1amt');
+        const Paper1qty = document.getElementById('p1qty');
+        const Paper1gsm = document.getElementById('p1unt');
+        const Paper1rate = document.getElementById('p1rate');
+        const Paper1sheet = document.getElementById('p1sheet');
+        const p1 = document.getElementById('p1');
+
+        function calculateP1() {
+            const amt = parseFloat(Paper1amt.value) || 0;
+            const qty = parseFloat(Paper1qty.value) || 0;
+            const gsm = parseFloat(Paper1gsm.value) || 0;
+            const rate = parseFloat(Paper1rate.value) || 0;
+            const sheet = parseFloat(Paper1sheet.value) || 0;
+
+            const result = amt * qty * gsm / 3100 * rate / 500 * sheet;
+            p1.value = result.toFixed(2); // or just `result` if you don't want to round
+        }
+
+        // Add listeners to all inputs
+        [Paper1amt, Paper1qty, Paper1gsm, Paper1rate, Paper1sheet].forEach(input => {
+            input.addEventListener('input', calculateP1);
+        });
+
+        //PAPER-2
+
+        const Paper2amt = document.getElementById('p2amt');
+        const Paper2qty = document.getElementById('p2qty');
+        const Paper2gsm = document.getElementById('p2unt');
+        const Paper2rate = document.getElementById('p2rate');
+        const Paper2sheet = document.getElementById('p2sheet');
+        const p2 = document.getElementById('p2');
+
+        function calculateP2() {
+            const amt2 = parseFloat(Paper2amt.value) || 0;
+            const qty2 = parseFloat(Paper2qty.value) || 0;
+            const gsm2 = parseFloat(Paper2gsm.value) || 0;
+            const rate2 = parseFloat(Paper2rate.value) || 0;
+            const sheet2 = parseFloat(Paper2sheet.value) || 0;
+
+            const result2 = amt2 * qty2 * gsm2 / 3100 * rate2 / 500 * sheet2;
+            p2.value = result2.toFixed(2); // or just `result` if you don't want to round
+        }
+
+        // Add listeners to all inputs
+        [Paper2amt, Paper2qty, Paper2gsm, Paper2rate, Paper2sheet].forEach(input => {
+            input.addEventListener('input', calculateP2);
+        });
+
+        //LAMINATION-1
+
+        const lmsize1 = document.getElementById('lmsize1');
+        const lmsize2 = document.getElementById('lmsize2');
+        const lmside = document.getElementById('lmside');
+        const lmrate= document.getElementById('lmrate');
+        const lmsheet = document.getElementById('lmsheet');
+        const lm = document.getElementById('lm');
+
+        function calculatelm() {
+            const lms1 = parseFloat(lmsize1.value) || 0;
+            const lms2 = parseFloat(lmsize2.value) || 0;
+            const lmsi = parseFloat(lmside.value) || 0;
+            const lmra = parseFloat(lmrate.value) || 0;
+            const lmsh = parseFloat(lmsheet.value) || 0;
+
+            const result3 = lms1*lms2*lmra/100*lmsi*lmsh;
+            lm.value = result3.toFixed(2); // or just `result` if you don't want to round
+        }
+
+        // Add listeners to all inputs
+        [lmsize1, lmsize2, lmside, lmrate, lmsheet].forEach(input => {
+            input.addEventListener('input', calculatelm);
+        });
+
+       
+        //FOLDING
+
+        const f1 = document.getElementById('f1');
+        const f2 = document.getElementById('f2');
+        const fold = document.getElementById('fold');
+        const b1 = document.getElementById('b1');
+        const b2 = document.getElementById('b2');
+        const bag = document.getElementById('bag');
+
+        const packin = document.getElementById('pack1');
+        const pack = document.getElementById('pack');
+        const bingin = document.getElementById('bind1');
+        const bind = document.getElementById('bind');
+
+
+        function calculateFold() {
+            const fold1 = parseFloat(f1.value) || 0;
+            const fold2 = parseFloat(f2.value) || 0;
+            const foldresult = fold2/1000*fold1;
+            fold.value = foldresult.toFixed(2);
+            calculateBag(fold2); // Call bag calculation whenever fold changes
+            calculatepack(fold2); // Call bag calculation whenever fold changes
+            calculatebind(fold2); // Call bag calculation whenever fold changes
+        }
+
+        function calculateBag(foldValue) {
+            const bag1 = parseFloat(b1.value) || 0;
+            const bag2 = parseFloat(b2.value) || 0;
+            const bagresult = foldValue/bag1*bag2;
+            bag.value = bagresult.toFixed(2);
+        }
+        
+        function calculatepack(foldValue) {
+            const packinput = parseFloat(packin.value) || 0;
+            const packresult = foldValue/1000*packinput;
+            pack.value = packresult.toFixed(2);
+        }
+        function calculatebind(foldValue) {
+            const bindinput = parseFloat(bingin.value) || 0;
+            const bindresult = foldValue*bindinput;
+            bind.value = bindresult.toFixed(2);
+        }
+
+        // Add listeners for folding inputs
+        [f1, f2].forEach(input => {
+            input.addEventListener('input', calculateFold);
+        });
+
+        // Add listeners for bag inputs
+        [b1, b2].forEach(input => {
+            input.addEventListener('input', () => {
+                calculateBag(parseFloat(f2.value) || 0);
+            });
+        });
+
+        // Add listeners for pack inputs
+        [packin].forEach(input => {
+            input.addEventListener('input', () => {
+                calculatepack(parseFloat(f2.value) || 0);
+            });
+        });
+        // Add listeners for binding inputs
+        [bingin].forEach(input => {
+            input.addEventListener('input', () => {
+                calculatebind(parseFloat(f2.value) || 0);
+            });
+        });
+
+        // Initial calculation
+        calculateFold();
+
+        const boxamt = document.getElementById('boxamt');
+        const boxqty = document.getElementById('boxqty');
+        const boxgsm = document.getElementById('boxunt');
+        const boxrate = document.getElementById('boxrate');
+        const boxsheet = document.getElementById('boxsheet');
+        const box = document.getElementById('box');
+
+        function calculatebox() {
+            const bamt = parseFloat(Paper1amt.value) || 0;
+            const bqty = parseFloat(Paper1qty.value) || 0;
+            const bgsm = parseFloat(Paper1gsm.value) || 0;
+            const brate = parseFloat(Paper1rate.value) || 0;
+            const bsheet = parseFloat(Paper1sheet.value) || 0;
+
+            const result5 = bamt*bqty*bgsm/1550000*bsheet/10*brate;
+            box.value = result5.toFixed(2); // or just `result` if you don't want to round
+        }
+
+        // Add listeners to all inputs
+        [boxamt, boxqty, boxgsm, boxrate, boxsheet].forEach(input => {
+            input.addEventListener('input', calculatebox);
+        });
+
+        const total = document.getElementById('total');
+        const printing1 = document.getElementById('print1');
+        const printing2 = document.getElementById('print2');
+        const dyeing = document.getElementById('dye');
+        const punching = document.getElementById('punch');
+        const fre = document.getElementById('freight');
+
+
+        const per = document.getElementById('per');
+        const perc = document.getElementById('perc');
+        const mout = document.getElementById('mout');
+        const qtyperpcs = document.getElementById('qtyperpcs');
+
+        function calculateTotal() {
+            // Get all input values
+            const p1val = parseFloat(p1.value) || 0;
+            const p2val = parseFloat(p2.value) || 0;
+            const print1val = parseFloat(printing1.value) || 0;
+            const print2val = parseFloat(printing2.value) || 0;
+            const lmval = parseFloat(lm.value) || 0;
+            const dyeval = parseFloat(dyeing.value) || 0;
+            const punchval = parseFloat(punching.value) || 0;
+            const foldval = parseFloat(fold.value) || 0;
+            const bagval = parseFloat(bag.value) || 0;
+            const packval = parseFloat(pack.value) || 0;
+            const bindval = parseFloat(bind.value) || 0;
+            const boxval = parseFloat(box.value) || 0;
+            const freightval = parseFloat(fre.value) || 0;
+            const perval = parseFloat(per.value) || 0;
+
+            // Calculate total
+            const totalresult = p1val + p2val + print1val + print2val + lmval + 
+                               dyeval + punchval + foldval + bagval + packval + 
+                               bindval + boxval + freightval;
+            
+            // Update total field
+            total.value = totalresult.toFixed(2);
+            calculateProfit();
+        }
+
+        function calculateProfit() {
+            const totalVal = parseFloat(total.value) || 0;
+            const percentVal = parseFloat(per.value) || 0;
+            const profitAmount = (totalVal * percentVal) / 100;
+            perc.value = profitAmount.toFixed(2);
+            
+            // Calculate and update mout (total + profit amount)
+            const moutAmount = totalVal + profitAmount;
+            mout.value = moutAmount.toFixed(2);
+            calculatePerPiece();
+        }
+
+        function calculatePerPiece() {
+            const moutVal = parseFloat(mout.value) || 0;
+            const qtyVal = parseFloat(qtyperpcs.value) || 0;
+            const perPieceAmount = qtyVal > 0 ? moutVal / qtyVal : 0;
+            perpcs.value = perPieceAmount.toFixed(2);
+        }
+
+        // Add event listeners to all input fields that affect the total
+        [p1, p2, printing1, printing2, lm, dyeing, punching, fold, bag, pack, bind, box, fre].forEach(input => {
+            input.addEventListener('input', calculateTotal);
+        });
+
+        // Add separate listeners for percentage and quantity inputs
+        per.addEventListener('input', calculateProfit);
+        qtyperpcs.addEventListener('input', calculatePerPiece);
+        
+        // Initial calculations
+        calculateTotal();
+    </script>
+</body>
+
+</html>
